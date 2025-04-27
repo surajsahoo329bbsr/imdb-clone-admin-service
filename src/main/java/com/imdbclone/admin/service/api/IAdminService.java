@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IAdminService {
 
-    void login(String username, String email, String password);
+    String login(String username, String email, String password);
 
     List<UserDTO> getAllUsers(Integer pageNumber, Integer pageSize, boolean sortByLatestFirst);
 

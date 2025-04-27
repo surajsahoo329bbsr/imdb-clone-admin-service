@@ -2,13 +2,18 @@ package com.imdbclone.admin.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Setter
 @Getter
 @SuperBuilder
+@NoArgsConstructor
 public class Admin {
 
     @Id
@@ -23,6 +28,12 @@ public class Admin {
 
     @Column(nullable = false)
     private String passwordHash;
+
+    private boolean isLoggedIn;
+
+    private LocalDateTime lastLoginAt;
+
+    private LocalDateTime lastLogoutAt;
 
     @OneToMany(mappedBy = "admin")
     private List<Genre> genres;
