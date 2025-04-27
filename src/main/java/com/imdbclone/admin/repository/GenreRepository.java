@@ -1,4 +1,7 @@
 package com.imdbclone.admin.repository;
 
-public interface GenreRepository {
+import com.imdbclone.admin.entity.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 }
