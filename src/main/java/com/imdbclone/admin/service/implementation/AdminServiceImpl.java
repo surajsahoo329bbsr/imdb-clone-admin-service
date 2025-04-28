@@ -3,6 +3,7 @@ package com.imdbclone.admin.service.implementation;
 import com.imdbclone.admin.entity.Admin;
 import com.imdbclone.admin.repository.AdminRepository;
 import com.imdbclone.admin.service.api.IAdminService;
+import com.imdbclone.admin.service.client.UserServiceClient;
 import com.imdbclone.admin.util.JWTUtils;
 import com.imdbclone.admin.web.response.UserDTO;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,11 +17,13 @@ public class AdminServiceImpl implements IAdminService {
     private final AdminRepository adminRepository;
     private final JWTUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
+    private final UserServiceClient userServiceClient;
 
-    public AdminServiceImpl(AdminRepository adminRepository, JWTUtils jwtUtils, PasswordEncoder passwordEncoder) {
+    public AdminServiceImpl(AdminRepository adminRepository, JWTUtils jwtUtils, PasswordEncoder passwordEncoder, UserServiceClient userServiceClient) {
         this.adminRepository = adminRepository;
         this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
+        this.userServiceClient = userServiceClient;
     }
 
     @Override
@@ -49,11 +52,16 @@ public class AdminServiceImpl implements IAdminService {
 
     @Override
     public List<UserDTO> getAllUsers(Integer pageNumber, Integer pageSize, boolean sortByLatestFirst) {
-        return List.of();
+        return userServiceClient.getAllUsers(pageNumber, pageSize, sortByLatestFirst);
     }
 
     @Override
-    public void deleteUserById(Long userId) {
+    public List<UserDTO> getAllSoftDeletedUsers(Integer pageNumber, Integer pageSize, boolean sortByLatestFirst) {
+        return userServiceClient.getAllSoftDeletedUsers(pageNumber, pageSize, sortByLatestFirst);
+    }
 
+    @Override
+    public void hardDeleteUserById(Long userId) {
+        userServiceClient.hardDeleteUserById(userId);
     }
 }
