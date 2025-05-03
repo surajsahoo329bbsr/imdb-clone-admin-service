@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GenreServiceImpl implements IGenreService {
 
